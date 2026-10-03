@@ -1,6 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from database import Base,engine
+import models #import models makes SQLAlchemy aware of the Note model.
+
+#checks the database and creates the notes table if it doesn't already exist.
+Base.metadata.create_all(bind=engine)
+
 # creates FastApi app
 app = FastAPI()
 
