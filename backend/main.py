@@ -53,3 +53,33 @@ def create_note(note: NoteCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_note)
     return new_note
+
+
+#update an existing note
+@app.put("/api/notes/{note_id}")
+def update_note(note_id: int, note: NoteCreate, db: Session = Depends(get_db)):
+    existing_note = db.query(Note).filter(Note.id == note_id).first()
+
+    if existing_note is None:
+        return {"error": "Note not found"}
+
+    existing_note.title = note.title
+    existing_note.content = note.content
+
+    db.commit()
+    db.refresh(existing_note)
+
+    return existing_note
+
+# Delete an existing note
+@app.delete("/api/notes/{note_id}")
+def delete_note(note_id: int, db: Session = Depends(get_db)):
+    existing_note = db.query(Note).filter(Note.id == note_id).first()
+
+    if existing_note is None:
+        return {"error": "Note not found"}
+
+    db.delete(existing_note)
+    db.commit()
+
+    return {"message": "Note deleted successfully"}
