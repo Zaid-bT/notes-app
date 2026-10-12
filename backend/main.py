@@ -15,13 +15,13 @@ from auth import (
     oauth2_scheme,
     verify_password,
 )
-from database import Base, engine, SessionLocal
+from database import SessionLocal
 from models import Note, User
 from schemas import NoteCreate, UserCreate
 
 
 # Create database tables
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)..this line not needed anymore as Alembic manages the database schema
 
 app = FastAPI()
 
