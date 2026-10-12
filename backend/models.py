@@ -19,6 +19,12 @@ class User(Base):
         back_populates="owner"
     )
 
+    """users
+----------------
+id
+email
+password_hash"""
+
 
 class Note(Base):
     __tablename__ = "notes"
@@ -45,3 +51,10 @@ class Note(Base):
         "User",
         back_populates="notes"
     )
+"""    notes
+------------------------------------------------
+id            integer        primary key
+title         varchar(200)
+content       text
+created_at    timestamp
+updated_at    timestamp             """
